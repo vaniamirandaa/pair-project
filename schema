@@ -1,0 +1,33 @@
+TABLE: Roles
+- id (PRIMARY KEY)
+- name
+
+TABLE: Users
+- id (PRIMARY KEY)
+- firstname
+- lastname
+- date_of_birth
+- gender
+- email
+- password
+- role_id (FOREIGN KEY references Roles(id))
+
+TABLE: Drivers
+- id (PRIMARY KEY)
+- user_id (FOREIGN KEY references Users(id))
+- employeeId
+
+TABLE: Managers
+- id (PRIMARY KEY)
+- user_id (FOREIGN KEY references Users(id))
+- employeeId
+
+TABLE: Travels
+- id (PRIMARY KEY)
+- name
+- origin
+- destination
+- seatnumber
+- price
+- imageurl
+- description
