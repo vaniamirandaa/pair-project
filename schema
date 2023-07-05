@@ -31,3 +31,6 @@ TABLE: Travels
 - price
 - imageurl
 - description
+- passenger_id (FOREIGN KEY references Users(id))
+- driver_id (FOREIGN KEY references Drivers(id))
+- manager_id (FOREIGN KEY references Managers(id))
