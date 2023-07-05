@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const router = require('./routes/indexx');
+const router = require('./routes/index');
 const app = express();
 const port = 3000;
 
