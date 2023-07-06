@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Schedule.belongsTo(models.TravelAgent)
     }
+    // showStatus(){
+    //   if(this.seatNumber === 0){
+    //     return "Sold Out!"
+    //   } 
+      
+    // }
   }
   Schedule.init({
     departure: {
@@ -41,6 +47,15 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Schedule',
   });
+
+  Schedule.beforeValidate((schedule, origins) => {
+    if (schedule.origin) {
+      schedule.origin = schedule.origin[0].toUpperCase() + schedule.origin.slice(1).toLowerCase();
+  }
+  if (schedule.destination) {
+      schedule.destination = schedule.destination[0].toUpperCase() + schedule.destination.slice(1).toLowerCase();
+  }
+  })
 
 
   return Schedule;

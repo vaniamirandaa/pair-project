@@ -29,10 +29,7 @@
             <th>Departure</th>
             <th>Price</th>
             <th>Seat Left</th>
-
-
-
-                <th>Action</th>
+            <th>Action</th>
         </tr>
         <% schedules.forEach((e) => { %>
             <tr>
@@ -43,18 +40,23 @@
                 <td><%= e.price %></td>
                 <td><%= e.seatNumber %></td>
 
-
                 <% if (userRole === 'agent') { %>
-                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/delete/<%= e.id %>">Delete</a></td>
+                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/schedules/delete/<%= e.id %>">Delete</a></td>
                 <% } else if (userRole === 'customer') { %>
-                    <td><a href="/buy/<%= e.id %>">Buy</a></td>
+                    <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
+                        <td>Sold Out</td>
+                    <% } else { %>
+                        <td><a href="/schedules/checkout/<%= e.id %>">Buy</a></td>
+                    <% } %>
                 <% } else { %>
-                    <td><a href="/buy/<%= e.id %>">Buy</a></td>
+                    <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
+                        <td>Sold Out</td>
+                    <% } else { %>
+                        <td><a href="/schedules/checkout/<%= e.id %>">Buy</a></td>
+                    <% } %>
                 <% } %>
-                
-
             </tr>
-        <% })  %>
+        <% }) %>
     </table>
 </body>
 </html>

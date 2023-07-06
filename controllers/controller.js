@@ -58,8 +58,12 @@ class Controller {
             res.redirect('/login')
         })
         .catch((err)=>{
+            if(err.name === 'SequelizeValidationError'){
+             return res.send(err.errors[0].message)
+            }
             res.send(err)
-        })
+         })
+
     }
 
     static getNewUser(req, res){
@@ -84,18 +88,23 @@ class Controller {
       }
     
       static buyTicket(req, res) {
-        if (!req.session.isLoggedIn) {
+        if (!req.session.user) {
             res.redirect('/login');
             return;
         }
-        Itinerary.findAll({
-            include: Schedule
+        Schedule.findByPk(req.params.id)
+        .then((schedule) => {
+            if(!schedule) {
+                throw ("Travel not found!")
+            }
+            return schedule.decrement('seatNumber')
         })
-        .then((itineraries) =>{
-            res.render('itinerary', { itineraries})
+        .then(() => {
+            res.redirect('/schedules')
         })
-        .catch(() =>{
-            res.send(err)
+    
+          .catch((err)=>{
+            res.redirect(`/schedules?error=${err}`)
         })
     }
 static addTravel(req, res){
@@ -123,6 +132,7 @@ static getNewTravel(req, res){
        res.send(err)
     })
 }
+
     static delete(req, res) {
         const id = req.params.id;
         Schedule.findByPk(id)
@@ -141,7 +151,7 @@ static getNewTravel(req, res){
                 }
             })
             .then(() => {
-                res.redirect('/schedule');
+                res.redirect('/schedules');
             })
             .catch(err => {
                 res.send(err);

@@ -19,19 +19,57 @@ module.exports = (sequelize, DataTypes) => {
     //  }
   }
   Profile.init({
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    dateOfBirth: DataTypes.DATE,
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'First name cannot be null.'
+        }
+      },
+      notEmpty: {
+        msg: 'First name cannot be empty.'
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Last name cannot be null.'
+        },
+      },
+      notEmpty: {
+        msg: 'Last name cannot be empty.'
+      }
+    },
+    
+    dateOfBirth: {
+        type: DataTypes.DATE,
+        validate: {
+          args: {
+            isOver13(value) {
+              const today = new Date();
+              const birthYear = new Date(value);
+              const age = today.getFullYear() - birthYear.getFullYear();
+              if (age < 13) {
+                  throw new Error('You must be over 13 years old!');
+              }
+          }
+          },
+    
+        }
+    },
     phoneNumber: DataTypes.NUMBER,
     address: DataTypes.TEXT,
     UserId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'User',
-        key: 'Id'
-      } 
-    }
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'User',
+            key: 'Id'
+        }
+    },
   }, {
     sequelize,
     modelName: 'Profile',
