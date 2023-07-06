@@ -104,21 +104,30 @@ class Controller {
             res.redirect('/login');
             return;
         }
-        Schedule.findByPk(req.params.id)
-        .then((schedule) => {
-            if(!schedule) {
+        Schedule.findByPk(req.params.id, {
+            include: TravelAgent
+        })
+        .then((schedules) => {
+            if(!schedules) {
                 throw ("Travel not found!")
             }
-            return schedule.decrement('seatNumber')
+            res.render('Book', { schedules })
+            // return schedule.decrement('seatNumber')
+            // res.send(schedule)
         })
-        .then(() => {
-            res.redirect('/schedules')
-        })
+        // .then(() => {
+        //     res.redirect('/schedules')
+        // })
     
           .catch((err)=>{
             res.redirect(`/schedules?error=${err}`)
         })
     }
+
+    static generateBook(req, res) {
+        res.render('viewBooks')
+    }
+
 static addTravel(req, res){
     TravelAgent.findAll({
         include: Schedule

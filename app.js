@@ -24,7 +24,7 @@ let userHash;
 bcrypt.hash(password, saltRounds)
   .then(hash => {
     userHash = hash;
-    console.log('Hash:', hash);
+    // console.log('Hash:', hash);
     validateUser(hash);
   })
   .catch(err => console.error(err.message));
@@ -32,7 +32,7 @@ bcrypt.hash(password, saltRounds)
 function validateUser(hash) {
   bcrypt.compare(password, hash)
     .then(res => {
-      console.log(res);
+      // console.log(res);
     })
     .catch(err => console.error(err.message));
 }

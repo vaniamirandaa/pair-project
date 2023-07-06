@@ -10,7 +10,7 @@
     <h1>Login</h1>
 
     <% if (message) { %>
-      <p><%= message %></p>
+      <p style="color: red;"><%= message %></p>
     <% } %>
 
     <form method="post" action="/login">
@@ -26,7 +26,9 @@
 
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
-    <a href="/signup"><button class="btn btn-secondary">Sign Up</button></a>
+    <br>
+    <p>Doesn't have account ? <a href="/signup">Sign Up</a></p>
+    
   </div>
 
   <!-- Skrip JavaScript Bootstrap -->
