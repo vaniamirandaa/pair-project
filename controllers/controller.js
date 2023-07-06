@@ -81,32 +81,6 @@ class Controller {
             res.redirect('/login');
             return;
         }
-    
-        // const id = req.params.id;
-        // const userId = req.session.userId;
-    
-        // Schedule.findByPk(id)
-        //     .then((schedule) => {
-        //         if (!schedule) {
-        //             res.status(404).send('Schedule not found');
-        //             return;
-        //         }
-    
-        //         Itinerary.create({
-        //             origin: schedule.origin,
-        //             destination: schedule.destination,
-        //             departure: schedule.departure,
-        //             userId: userId
-        //         })
-        //             .then(() => {
-        //                 res.redirect('/itinerary');
-        //             });
-        //     })
-        //     .catch((err) => {
-        //         res.send(err);
-        //         console.log(err);
-
-        //     });
         Itinerary.findAll({
             include: Schedule
         })
@@ -119,10 +93,7 @@ class Controller {
     }
 
     static delete(req, res) {
-
-    
-        const id = req.params.id;
-    
+        const id = req.params.id
         Schedule.destroy({
             where: {
                 id: id
