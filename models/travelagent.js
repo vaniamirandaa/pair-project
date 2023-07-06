@@ -16,7 +16,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TravelAgent.init({
-    UserId: DataTypes.INTEGER,
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'Id'
+      } 
+    },
     name: DataTypes.STRING,
     address: DataTypes.TEXT
   }, {

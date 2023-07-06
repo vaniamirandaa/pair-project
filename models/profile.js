@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     phoneNumber: DataTypes.NUMBER,
     address: DataTypes.TEXT,
     UserId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'User',

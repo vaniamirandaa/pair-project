@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasOne(models.TravelAgent)
       User.hasOne(models.Profile)
+      User.hasOne(models.Itinerary)
+
     }
   }
   User.init({
