@@ -1,17 +1,17 @@
 [
     {
         "id": 1,
-        "name": "Passenger"
+        "roleName": "Passenger"
         
     },
     {
         "id": 2,
-        "name": "Driver"
+        "roleName": "Driver"
         
     },
     {
         "id": 3,
-        "name": "Manager"
+        "roleName": "Manager"
       
     }
   ]
