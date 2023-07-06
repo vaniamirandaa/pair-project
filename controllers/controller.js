@@ -53,6 +53,22 @@ class Controller {
         })
     }
 
+    static createUser(req, res){
+        const { email, password, name, dateOfBirth } = req.body
+        User.create({email, password, role: 'customer'})
+        .then((user) => {
+            Profile.create({firstName, dateOfBirth, UserId: user.id})
+        })
+        .then(()=>{
+            res.redirect('/login')
+        })
+        .catch((err)=>{
+            res.send(err)
+        })
+    }
 
+    static getNewUser(req, res){
+        res.render('SignUp')
+    }
 }
 module.exports = Controller
