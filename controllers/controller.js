@@ -57,7 +57,7 @@ class Controller {
         const { email, password, firstName, lastName, dateOfBirth, phoneNumber, address } = req.body
         User.create({email, password, role: 'customer'})
         .then((user) => {
-            Profile.create({firstName, lastName, dateOfBirth, phoneNumber, address, UserId: user.id})
+            Profile.create({email, password, firstName, lastName, dateOfBirth, phoneNumber, address, UserId: user.id})
         })
         .then(()=>{
             res.redirect('/login')

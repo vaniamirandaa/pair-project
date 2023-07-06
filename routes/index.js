@@ -6,8 +6,8 @@ router.get('/', Controller.findSchedule)
 router.get('/login',Controller.login )
 router.post('/login',Controller.getLogin )
 router.post('/logout', Controller.logout);
-router.get('/signup', Controller.createUser)
-router.post('/signup', Controller.getNewUser)
+router.get('/signup', Controller.getNewUser)
+router.post('/signup', Controller.createUser)
 
 
 
