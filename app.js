@@ -24,7 +24,7 @@ let userHash;
 bcrypt.hash(password, saltRounds)
   .then(hash => {
     userHash = hash;
-    console.log('Hash:', hash);
+    // console.log('Hash:', hash);
     validateUser(hash);
   })
   .catch(err => console.error(err.message));
@@ -32,7 +32,7 @@ bcrypt.hash(password, saltRounds)
 function validateUser(hash) {
   bcrypt.compare(password, hash)
     .then(res => {
-      console.log(res);
+      // console.log(res);
     })
     .catch(err => console.error(err.message));
 }
@@ -40,7 +40,7 @@ function validateUser(hash) {
 let data = {};
 easyinvoice.createInvoice(data, function (result) {
     // The response will contain a base64 encoded PDF file
-    console.log('PDF base64 string: ', result.pdf);
+    // console.log('PDF base64 string: ', result.pdf);
 
     // Now this result can be used to save, download or render your invoice
     // Please review the documentation below on how to do this
