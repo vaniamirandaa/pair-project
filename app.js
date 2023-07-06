@@ -37,16 +37,17 @@ function validateUser(hash) {
     .catch(err => console.error(err.message));
 }
 
-// let data = {};
-// easyinvoice.createInvoice(data, function (result) {
-//     // The response will contain a base64 encoded PDF file
-//     console.log('PDF base64 string: ', result.pdf);
-
-//     // Now this result can be used to save, download or render your invoice
-//     // Please review the documentation below on how to do this
-// });
-
-
 app.listen(port, () => {
   console.log(`Server is running on ${port}`);
 });
+
+
+function restrictToAgent(req, res, next) {
+  if (req.session.user && req.session.user.role === 'agent') {
+      next();
+  } else {
+      res.send('This page is accesible to agents only!');
+  }
+}
+
+module.exports = restrictToAgent;

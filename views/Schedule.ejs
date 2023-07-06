@@ -4,76 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
-<style>
-    table, th, td {
-  border: 1px solid black;
-}
-</style>
 <body>
-    <h1>Schedule</h1>
-    <a href="/">Check Your Plan</a>
-    
-    <form action="/schedules" method="get">
-        <label for="origin">Origin:</label>
-        <input type="text" id="origin" name="origin">
-        <label for="destination">Destination:</label>
-        <input type="text" id="destination" name="destination">
-        <input type="submit" value="Search">
-      </form>
-
-    <% if (isLoggedIn) { %>
-        <form method="post" action="/logout">
-            <button type="submit">Logout</button>
+    <div class="container">
+        <h1>Travel List</h1>
+        <!-- <a href="/">Check Your Plan</a> -->
+        
+        <form action="/schedules" method="get" class="mb-3">
+            <div class="form-row">
+                <div class="col">
+                    <label for="origin">Origin:</label>
+                    <input type="text" class="form-control" id="origin" name="origin">
+                </div>
+                <div class="col">
+                    <label for="destination">Destination:</label>
+                    <input type="text" class="form-control" id="destination" name="destination">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Search</button>
         </form>
-    <% } else { %>
-        <a href="/login"><button>Login</button></a>
-        <a href="/signup"><button>Sign Up</button></a>
-    <% } %>
-    <% if (userRole === 'agent') { %>
-        <a href="/schedules/add"><button>Add Travel</button></a>
-    <% } %>
 
-    <% if (schedules.length > 0) { %>
-    <table>
-        <tr>
-            <th>Travel Agent</th>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Departure</th>
-            <th>Price</th>
-            <th>Seat Left</th>
-            <th>Action</th>
-        </tr>
-        <% schedules.forEach((e) => { %>
-            <tr>
-                <td><%= e.TravelAgent.name %></td>
-                <td><%= e.origin %></td>  
-                <td><%= e.destination %></td>
-                <td><%= formatDate(e.departure) %></td>
-                <td><%= formatPrice(e.price) %></td>
-                <td><%= e.seatNumber %></td>
+        <% if (isLoggedIn) { %>
+            <form method="post" action="/logout">
+                <button type="submit" class="btn btn-secondary">Logout</button>
+            </form>
+        <% } else { %>
+            <a href="/login" class="btn btn-primary">Login</a>
+            <a href="/signup" class="btn btn-secondary">Sign Up</a>
+        <% } %>
+        <% if (userRole === 'agent') { %>
+            <a href="/schedules/add" class="btn btn-success">Add Travel</a>
+        <% } %>
 
-                <% if (userRole === 'agent') { %>
-                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/schedules/delete/<%= e.id %>">Delete</a></td>
-                <% } else if (userRole === 'customer') { %>
-                    <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
-                        <td style="color: red;">Sold Out</td>
+        <% if (schedules.length > 0) { %>
+        <table class="table table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Travel Agent</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Departure</th>
+                    <th>Price</th>
+                    <th>Seat Left</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% schedules.forEach((e) => { %>
+                    <tr>
+                        <td><%= e.TravelAgent.name %></td>
+                        <td><%= e.origin %></td>  
+                        <td><%= e.destination %></td>
+                        <td><%= formatDate(e.departure) %></td>
+                        <td><%= formatPrice(e.price) %></td>
+                        <td><%= e.seatNumber %></td>
+
+                        <% if (userRole === 'agent') { %>
+                            <td><a href="/schedules/delete/<%= e.id %>" class="btn btn-danger">Delete</a></td>
+                        <% } else if (userRole === 'customer') { %>
+                            <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
+                                <td style="color: red;">Sold Out</td>
+                            <% } else { %>
+                                <td><a href="/schedules/buy/<%= e.id %>" class="btn btn-primary">Buy</a></td>
+                            <% } %>
                         <% } else { %>
-                        <td><a href="/schedules/buy/<%= e.id %>">Buy</a></td>
-                    <% } %>
-                <% } else { %>
-                    <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
-                        <td style="color: red;">Sold Out</td>
-                        <% } else { %>
-                        <td><a href="/schedules/buy/<%= e.id %>">Buy</a></td>
-                    <% } %>
-                <% } %>
-            </tr>
-        <% }) %>
-    </table>
-    <% } else { %>
-        <p>No schedules found.</p>
-      <% } %>
+                            <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
+                                <td style="color: red;">Sold Out</td>
+                            <% } else { %>
+                                <td><a href="/schedules/buy/<%= e.id %>" class="btn btn-primary">Buy</a></td>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <% } else { %>
+            <p>No travel found.</p>
+        <% } %>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -6,6 +6,10 @@ const {formatPrice, formatDate} = require('../helpers/formatter')
 
 class Controller {
 
+    static home(req, res) {
+        res.render('LandingPage');
+      }
+
     static login(req, res) {
         res.render('login', { message: req.session.message });
       }
@@ -75,6 +79,8 @@ class Controller {
         if (req.query.destination) {
             where.destination = { [Op.iLike]: `%${req.query.destination}%` };
         }
+
+
         Schedule.findAll({
             where,
             include: TravelAgent,
