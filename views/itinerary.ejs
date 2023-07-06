@@ -1,3 +1,4 @@
+Itinerary.belongsTo(models.User)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,30 +10,32 @@
     <h1>Schedule</h1>
     <h2></h2>
 
-    <% if (itineraries.length > 0) { %>
         <h1>Your travel schedule</h1>
         <form method="post" action="/logout">
             <button type="submit">Logout</button>
         </form>
-        <table>
-            <tr>
-                <th>Departure</th>
-                <th>Ordered by</th>
-                <th>Origin</th>
-                <th>Destination</th>
-            </tr>
-            <% itineraries.forEach((e) => { %>
-                <tr>
-                    <td><%= e.Schedule.departure %></td>
-                    <td><%= e.User.email %></td>
-                    <td><%= e.Schedule.origin %></td>
-                    <td><%= e.Schedule.destination %></td>
-                </tr>
-            <% }) %>
-        </table>
-    <% } else { %>
         <a href="/login"><button>Login</button></a>
         <a href="/signup"><button>Sign Up</button></a>
-    <% } %>
+
+        <table>
+            <tr>
+              <th>Departure</th>
+              <th>Ordered by</th>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Travel</th>
+
+
+            </tr>
+            <% itineraries.forEach((e) => { %>
+              <tr>
+                <td><%= e.Schedule.departure %></td>
+                <td><%= e.User.email %></td>
+                <td><%= e.Schedule.origin %></td>
+                <td><%= e.Schedule.destination %></td>
+
+              </tr>
+            <% }) %>
+          </table>
 </body>
 </html>

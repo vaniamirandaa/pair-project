@@ -1,4 +1,5 @@
-const { User, Profile, TravelAgent, Itinerary, Schedule } = require('../models')
+const { User, Profile, TravelAgent, Itinerary, Schedule } = require('../models');
+const itinerary = require('../models/itinerary');
 
 class Controller {
     static login(req, res) {
@@ -75,23 +76,67 @@ class Controller {
       }
     
     
-
-    static itinerary(req, res) {
+      static buyTicket(req, res) {
         if (!req.session.isLoggedIn) {
             res.redirect('/login');
             return;
         }
     
+        // const id = req.params.id;
+        // const userId = req.session.userId;
+    
+        // Schedule.findByPk(id)
+        //     .then((schedule) => {
+        //         if (!schedule) {
+        //             res.status(404).send('Schedule not found');
+        //             return;
+        //         }
+    
+        //         Itinerary.create({
+        //             origin: schedule.origin,
+        //             destination: schedule.destination,
+        //             departure: schedule.departure,
+        //             userId: userId
+        //         })
+        //             .then(() => {
+        //                 res.redirect('/itinerary');
+        //             });
+        //     })
+        //     .catch((err) => {
+        //         res.send(err);
+        //         console.log(err);
+
+        //     });
         Itinerary.findAll({
-            include: [{ model: User }, { model: Schedule, include: { model: TravelAgent, attributes: ['name'] } }]
+            include: Schedule
         })
-            .then((itineraries) => {
-                res.render('itinerary', { itineraries });
+        .then((itineraries) =>{
+            res.render('itinerary', { itineraries})
+        })
+        .catch(() =>{
+            res.send(err)
+        })
+    }
+
+    static delete(req, res) {
+
+    
+        const id = req.params.id;
+    
+        Schedule.destroy({
+            where: {
+                id: id
+            }
+        })
+            .then(() => {
+                res.redirect('/');
             })
             .catch((err) => {
                 res.send(err);
+                console.log(err);
             });
     }
+    
     
 
 

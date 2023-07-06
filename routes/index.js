@@ -8,7 +8,8 @@ router.post('/login',Controller.getLogin )
 router.post('/logout', Controller.logout);
 router.get('/signup', Controller.getNewUser)
 router.post('/signup', Controller.createUser)
-router.get('/getTravel', Controller.itinerary)
+router.get('/itinerary', Controller.buyTicket)
+router.get('delete/:id', Controller.delete)
 
 
 
