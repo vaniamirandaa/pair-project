@@ -27,6 +27,11 @@
             <th>Origin</th>
             <th>Destination</th>
             <th>Departure</th>
+            <th>Price</th>
+            <th>Seat Left</th>
+
+
+
                 <th>Action</th>
         </tr>
         <% schedules.forEach((e) => { %>
@@ -35,6 +40,9 @@
                 <td><%= e.origin %></td>  
                 <td><%= e.destination %></td>
                 <td><%= e.departure %></td>
+                <td><%= e.price %></td>
+                <td><%= e.seatNumber %></td>
+
 
                 <% if (userRole === 'agent') { %>
                     <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/delete/<%= e.id %>">Delete</a></td>

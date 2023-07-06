@@ -3,36 +3,48 @@
       "departure": "2023-07-06",
       "origin": "Jakarta",
       "destination": "Bali",
+      "price": 5000000,
+      "seatNumber": 20,
       "TravelAgentId": 1
     },
     {
       "departure": "2023-07-06",
       "origin": "Surabaya",
       "destination": "Yogyakarta",
+      "price": 6000000,
+      "seatNumber": 20,
       "TravelAgentId": 2
     },
     {
       "departure": "2023-07-06",
       "origin": "Bandung",
       "destination": "Lombok",
+      "price": 4000000,
+      "seatNumber": 20,
       "TravelAgentId": 3
     },
     {
-      "departure": "2023-07-06",
+      "departure": "2023-07-05",
       "origin": "Jakarta",
       "destination": "Bali",
+      "price": 4000000,
+      "seatNumber": 20,
       "TravelAgentId": 1
     },
     {
-      "departure": "2023-07-06",
+      "departure": "2023-07-08",
       "origin": "Surabaya",
       "destination": "Yogyakarta",
+      "price": 2000000,
+      "seatNumber": 20,
       "TravelAgentId": 2
     },
     {
       "departure": "2023-07-06",
       "origin": "Bandung",
       "destination": "Lombok",
+      "price": 2000000,
+      "seatNumber": 20,
       "TravelAgentId": 3
     }
   ]

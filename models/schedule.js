@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
     },    
     origin: DataTypes.STRING,
     destination: DataTypes.STRING,
+    price: DataTypes.INTEGER,
+    seatNumber: DataTypes.INTEGER,
     TravelAgentId: {
       type: DataTypes.INTEGER,
       references: {
