@@ -6,8 +6,8 @@ class Controller {
       }
 
     static getLogin(req, res) {
+        
     const { email, password } = req.body;
-
     if (email && password) {
         User.findAll({ where: { email } })
         .then((users) => {
@@ -54,10 +54,10 @@ class Controller {
     }
 
     static createUser(req, res){
-        const { email, password, name, dateOfBirth } = req.body
+        const { email, password, firstName, lastName, dateOfBirth, phoneNumber, address } = req.body
         User.create({email, password, role: 'customer'})
         .then((user) => {
-            Profile.create({firstName, dateOfBirth, UserId: user.id})
+            Profile.create({firstName, lastName, dateOfBirth, phoneNumber, address, UserId: user.id})
         })
         .then(()=>{
             res.redirect('/login')

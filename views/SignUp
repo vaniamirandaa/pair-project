@@ -7,10 +7,10 @@
 </head>
 <body>
     <h1>Sign up your account now!</h1>
-    <a href="/employees"><button>Back</button></a>
+    <a href="/login"><button>Back</button></a>
 
 
-    <form action="/employees/add" method="post">
+    <form action="/signup" method="post">
 
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" name="firstName">
