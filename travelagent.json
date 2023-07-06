@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "UserId": 1,
+      "name": "Wanderlust Adventures",
+      "address": "Jalan Jelajah No. 123, Jakarta"
+    },
+    {
+      "id": 2,
+      "UserId": 2,
+      "name": "Sunshine Voyagers",
+      "address": "Jalan Pesona No. 456, Surabaya"
+    },
+    {
+      "id": 3,
+      "UserId": 3,
+      "name": "Dreamscape Travel Co.",
+      "address": "Jalan Fantasi No. 789, Bandung"
+    }
+  ]
+  
