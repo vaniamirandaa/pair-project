@@ -1,7 +1,7 @@
 {
   "name": "pair-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "# On demand App this is pair-programming project, reference by Go-Jek app",
   "main": "test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
