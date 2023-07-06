@@ -16,6 +16,24 @@
       "origin": "Bandung",
       "destination": "Lombok",
       "TravelAgentId": 3
+    },
+    {
+      "departure": "09:00",
+      "origin": "Jakarta",
+      "destination": "Bali",
+      "TravelAgentId": 1
+    },
+    {
+      "departure": "14:30",
+      "origin": "Surabaya",
+      "destination": "Yogyakarta",
+      "TravelAgentId": 2
+    },
+    {
+      "departure": "10:45",
+      "origin": "Bandung",
+      "destination": "Lombok",
+      "TravelAgentId": 3
     }
   ]
   
