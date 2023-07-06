@@ -57,7 +57,7 @@ class Controller {
     
     static findSchedule(req, res){ // masih bingung nampilin firstName profile pas login
         Schedule.findAll({
-            include: TravelAgent, Profile
+            include: [TravelAgent, Profile]
         })
 
         .then((schedules, profiles) => {

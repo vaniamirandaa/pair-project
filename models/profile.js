@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Profile.belongsTo(models.User)
     }
+
+     welcomeMsg(){
+      return this.firstName
+     }
   }
   Profile.init({
     firstName: DataTypes.STRING,
