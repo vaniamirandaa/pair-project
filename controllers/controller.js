@@ -60,7 +60,7 @@ class Controller {
             Profile.create({firstName, lastName, dateOfBirth, phoneNumber, address, UserId: user.id})
         })
         .then(()=>{
-            res.redirect('/login')
+            res.redirect('/')
         })
         .catch((err)=>{
             res.send(err)
