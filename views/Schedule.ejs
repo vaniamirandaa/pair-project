@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    table, th, td {
+  border: 1px solid black;
+}
+</style>
 <body>
     <h1>Schedule</h1>
-    <a href="/getTravel">Check Your Plan</a>
+    <a href="/">Check Your Plan</a>
+    
+    <form action="/schedules" method="get">
+        <label for="origin">Origin:</label>
+        <input type="text" id="origin" name="origin">
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination">
+        <input type="submit" value="Search">
+      </form>
 
     <% if (isLoggedIn) { %>
         <form method="post" action="/logout">
@@ -20,7 +33,8 @@
     <% if (userRole === 'agent') { %>
         <a href="/schedules/add"><button>Add Travel</button></a>
     <% } %>
-    
+
+    <% if (schedules.length > 0) { %>
     <table>
         <tr>
             <th>Travel Agent</th>
@@ -36,27 +50,30 @@
                 <td><%= e.TravelAgent.name %></td>
                 <td><%= e.origin %></td>  
                 <td><%= e.destination %></td>
-                <td><%= e.departure %></td>
-                <td><%= e.price %></td>
+                <td><%= formatDate(e.departure) %></td>
+                <td><%= formatPrice(e.price) %></td>
                 <td><%= e.seatNumber %></td>
 
                 <% if (userRole === 'agent') { %>
                     <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/schedules/delete/<%= e.id %>">Delete</a></td>
                 <% } else if (userRole === 'customer') { %>
                     <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
-                        <td>Sold Out</td>
-                    <% } else { %>
-                        <td><a href="/schedules/checkout/<%= e.id %>">Buy</a></td>
+                        <td style="color: red;">Sold Out</td>
+                        <% } else { %>
+                        <td><a href="/schedules/buy/<%= e.id %>">Buy</a></td>
                     <% } %>
                 <% } else { %>
                     <% if (e.seatNumber === 0 || new Date(e.departure) < new Date()) { %>
-                        <td>Sold Out</td>
-                    <% } else { %>
-                        <td><a href="/schedules/checkout/<%= e.id %>">Buy</a></td>
+                        <td style="color: red;">Sold Out</td>
+                        <% } else { %>
+                        <td><a href="/schedules/buy/<%= e.id %>">Buy</a></td>
                     <% } %>
                 <% } %>
             </tr>
         <% }) %>
     </table>
+    <% } else { %>
+        <p>No schedules found.</p>
+      <% } %>
 </body>
 </html>

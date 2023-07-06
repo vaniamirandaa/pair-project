@@ -1,5 +1,8 @@
 const { User, Profile, TravelAgent, Itinerary, Schedule } = require('../models');
-const itinerary = require('../models/itinerary');
+const { Op } = require('sequelize');
+const {formatPrice, formatDate} = require('../helpers/formatter')
+
+
 
 class Controller {
 
@@ -65,20 +68,30 @@ class Controller {
 
     
     static findSchedule(req, res) {
+        let where = {};
+        if (req.query.origin) {
+            where.origin = { [Op.iLike]: `%${req.query.origin}%` };
+        }
+        if (req.query.destination) {
+            where.destination = { [Op.iLike]: `%${req.query.destination}%` };
+        }
         Schedule.findAll({
-          include: TravelAgent
+            where,
+            include: TravelAgent,
+            order: [['price', 'DESC']]
         })
-          .then((schedules) => {
-            let userRole;
-            if (req.session.isLoggedIn) {
-              userRole = req.session.user.role;
-            }
-            res.render('Schedule', { schedules, isLoggedIn: req.session.isLoggedIn, userRole });
-          })
-          .catch((err) => {
-            res.send(err);
-          });
-      }
+            .then((schedules) => {
+                let userRole;
+                if (req.session.isLoggedIn) {
+                    userRole = req.session.user.role;
+                }
+                res.render('Schedule', { schedules, isLoggedIn: req.session.isLoggedIn, userRole, formatDate, formatPrice });
+            })
+            .catch((err) => {
+                res.send(err);
+            });
+    }
+    
     
       static buyTicket(req, res) {
         if (!req.session.user) {
