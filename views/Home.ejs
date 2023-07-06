@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <%- include ('./partials/style.ejs') %>
 </head>
 <body>
     <h1>Schedule</h1>
@@ -14,17 +15,19 @@
             <button type="submit">Logout</button>
         </form>
     <% } else { %>
-        <a href="/login"><button>Login</button></a>
+        <a href="/login" class="login-btn"><button>Login</button></a>
         <a href="/signup"><button>Sign Up</button></a>
     <% } %>
 
-    <table>
+    <table id="customers">
         <tr>
             <th>Travel Agent</th>
             <th>Origin</th>
             <th>Destination</th>
             <th>Departure</th>
-                <th>Action</th>
+            <% if (userRole === 'agent' || userRole === 'customer') { %>
+            <th>Action</th>
+            <% }%>
         </tr>
         <% schedules.forEach((e) => { %>
             <tr>
@@ -34,12 +37,13 @@
                 <td><%= e.departure %></td>
 
                 <% if (userRole === 'agent') { %>
-                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/delete/<%= e.id %>">Delete</a></td>
+                <td>
+                    <a href="/edit/<%= e.id %>"><button>Edit</button></a>
+                    <a href="/delete/<%= e.id %>"><button>Delete</button></a>
+                </td>
                 <% } else if (userRole === 'customer') { %>
-                    <td><a href="/book/<%= e.id %>">BOOK</a></td>
+                    <td><a href="/book/<%= e.id %>"><button>BOOK</button></a></td>
                 <% } %>
-                
-
             </tr>
         <% })  %>
     </table>

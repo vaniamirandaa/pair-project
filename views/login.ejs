@@ -2,29 +2,31 @@
 <html>
 <head>
   <title>Login</title>
+  <%- include ('./partials/style.ejs') %>
 </head>
 <body>
-  <h1>Login</h1>
   <a href="/">Home</a>
-  
-  <% if (message) { %>
-    <p><%= message %></p>
-    <% } %>
+  <div class="login">
+    <h1>Login</h1>
     
     <form method="post" action="/login">
       <label for="email">Email:</label>
       <input type="text" id="email" name="email">
-      
       <br>
       
       <label for="password">Password:</label>
       <input type="password" id="password" name="password">
       
       <br>
-      <button type="submit">Login</button>
-      
+      <button type="submit">Login</button>      
       <br>
+
+      <% if (message) { %>
+        <p><%= message %></p>
+        <% } %>
     </form>
-    <a href="/signup"><button>Sign Up</button></a>
+      <a href="/signup"><button>Sign Up</button></a>
+
+  </div>
 </body>
 </html>
