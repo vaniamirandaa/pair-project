@@ -93,7 +93,15 @@ class Controller {
             });
     }
     
-
+    static bookTravel (req, res) {
+        const { id } =  req.params
+        Schedule.findByPk(id, {
+            include: TravelAgent
+        })
+        .then((data) => {
+            res.send(data)
+        })
+    }
 
 }
 module.exports = Controller
