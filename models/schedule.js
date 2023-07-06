@@ -11,13 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Schedule.belongsTo(models.TravelAgent)
     }
   }
   Schedule.init({
     departure: DataTypes.TIME,
     origin: DataTypes.STRING,
     destination: DataTypes.STRING,
-    TravelAgentId: DataTypes.INTEGER
+    TravelAgentId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'TravelAgents',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Schedule',
