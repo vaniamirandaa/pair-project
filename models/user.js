@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -23,13 +25,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
           notEmpty: {
-              msg: 'Email is required'
+              msg: 'Email is required!'
           },
           isEmail: {
               msg: 'Email is not valid!'
           }
       }
-  } ,
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -48,5 +50,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+  User.beforeCreate(async (user, options) => {
+    const saltRounds = 10;
+    user.password = await bcrypt.hash(user.password, saltRounds);
+});
+
+User.beforeSave(async (user, options) => {
+    if (user.changed('password')) {
+        const saltRounds = 10;
+        user.password = await bcrypt.hash(user.password, saltRounds);
+    }
+});
   return User;
+
 };

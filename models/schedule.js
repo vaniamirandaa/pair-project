@@ -27,12 +27,23 @@ module.exports = (sequelize, DataTypes) => {
         isNotInPast(value) {
           const now = new Date();
           if (value.getTime() < now.getTime()) {
-            throw new Error('Departure date cannot be in the past!');
+            throw new Error('Departure date cannot be yesterday!');
           }
         }
       }
     },    
-    origin: DataTypes.STRING,
+    origin: {
+    type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Last name cannot be null.'
+        },
+      },
+      notEmpty: {
+        msg: 'Last name cannot be empty.'
+      }
+    },
     destination: DataTypes.STRING,
     price: DataTypes.INTEGER,
     seatNumber: DataTypes.INTEGER,

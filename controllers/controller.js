@@ -2,14 +2,7 @@ const { User, Profile, TravelAgent, Itinerary, Schedule } = require('../models')
 const itinerary = require('../models/itinerary');
 
 class Controller {
-    // static home(req, res){
-    //     .then(()=>{
-    //         res.render('home')
-    //     })
-    //     .catch(()=>{
-    //         res.send(err)
-    //     })
-    // }
+
     static login(req, res) {
         res.render('login', { message: req.session.message });
       }
@@ -58,9 +51,9 @@ class Controller {
             res.redirect('/login')
         })
         .catch((err)=>{
-            if(err.name === 'SequelizeValidationError'){
-             return res.send(err.errors[0].message)
-            }
+            // if(err.name === 'SequelizeValidationError'){
+            //  return res.send(err.errors[0].message)
+            // }
             res.send(err)
          })
 
@@ -80,7 +73,7 @@ class Controller {
             if (req.session.isLoggedIn) {
               userRole = req.session.user.role;
             }
-            res.render('home', { schedules, isLoggedIn: req.session.isLoggedIn, userRole });
+            res.render('Schedule', { schedules, isLoggedIn: req.session.isLoggedIn, userRole });
           })
           .catch((err) => {
             res.send(err);
@@ -112,7 +105,7 @@ static addTravel(req, res){
         include: Schedule
     })
     .then((travelagents)=>{
-        res.render('addtravel', {travelagents})
+        res.render('AddTravel', {travelagents})
     })
     .catch((err)=>{
         console.log(err)
