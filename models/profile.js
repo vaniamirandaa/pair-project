@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Profile.belongsTo(models.User)
     }
 
-     welcomeMsg(){
-      return this.firstName
-     }
+    //  welcomeMsg(){
+    //   return `Welcome ${this.firstName}`
+    //  }
   }
   Profile.init({
     firstName: DataTypes.STRING,

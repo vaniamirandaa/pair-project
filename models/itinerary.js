@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Itinerary.belongsTo(models.User)
+      Itinerary.belongsTo(models.Schedule)
+
     }
   }
   Itinerary.init({

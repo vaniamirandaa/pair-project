@@ -13,8 +13,10 @@ class Controller {
         .then((users) => {
             if (users.length > 0 && users[0].password === password) {
             req.session.user = {
-                email: users[0].email
+                email: users[0].email,
+                role: users[0].role
             };
+            req.session.isLoggedIn = true;
             res.redirect('/');
             } else {
             req.session.message = 'Username or password is incorrect';
@@ -32,6 +34,7 @@ class Controller {
 }
 
     static logout(req, res) {
+        req.session.isLoggedIn = false;
         req.session.destroy(() => {
             res.redirect('/login');
         });
@@ -55,21 +58,41 @@ class Controller {
     }
 
     
-    static findSchedule(req, res){ // masih bingung nampilin firstName profile pas login
+    static findSchedule(req, res) {
         Schedule.findAll({
-            include: [TravelAgent, Profile]
+          include: TravelAgent
         })
+          .then((schedules) => {
+            let userRole;
+            if (req.session.isLoggedIn) {
+              userRole = req.session.user.role;
+            }
+            res.render('home', { schedules, isLoggedIn: req.session.isLoggedIn, userRole });
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      }
+    
+    
 
-        .then((schedules, profiles) => {
-            // res.send(schedules)
-            res.render('home', { schedules, profiles });
-
+    static itinerary(req, res) {
+        if (!req.session.isLoggedIn) {
+            res.redirect('/login');
+            return;
+        }
+    
+        Itinerary.findAll({
+            include: [{ model: User }, { model: Schedule, include: { model: TravelAgent, attributes: ['name'] } }]
         })
-        .catch((err)=>{
-            res.send(err)
-        })
+            .then((itineraries) => {
+                res.render('itinerary', { itineraries });
+            })
+            .catch((err) => {
+                res.send(err);
+            });
     }
-
+    
 
 
 }
