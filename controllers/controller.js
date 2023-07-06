@@ -2,6 +2,14 @@ const { User, Profile, TravelAgent, Itinerary, Schedule } = require('../models')
 const itinerary = require('../models/itinerary');
 
 class Controller {
+    // static home(req, res){
+    //     .then(()=>{
+    //         res.render('home')
+    //     })
+    //     .catch(()=>{
+    //         res.send(err)
+    //     })
+    // }
     static login(req, res) {
         res.render('login', { message: req.session.message });
       }
@@ -18,7 +26,7 @@ class Controller {
                 role: users[0].role
             };
             req.session.isLoggedIn = true;
-            res.redirect('/');
+            res.redirect('/schedules');
             } else {
             req.session.message = 'Username or password is incorrect';
             res.redirect('/login');
@@ -75,7 +83,6 @@ class Controller {
           });
       }
     
-    
       static buyTicket(req, res) {
         if (!req.session.isLoggedIn) {
             res.redirect('/login');
@@ -91,21 +98,56 @@ class Controller {
             res.send(err)
         })
     }
+static addTravel(req, res){
+    TravelAgent.findAll({
+        include: Schedule
+    })
+    .then((travelagents)=>{
+        res.render('addtravel', {travelagents})
+    })
+    .catch((err)=>{
+        console.log(err)
+        res.send(err)
+    })
+}
 
+static getNewTravel(req, res){
+    Schedule.create(req.body)
+    .then(()=>{
+        res.redirect('/schedules')
+    })
+    .catch((err)=>{
+       if(err.name === 'SequelizeValidationError'){
+        return res.send(err.errors[0].message)
+       }
+       res.send(err)
+    })
+}
     static delete(req, res) {
-        const id = req.params.id
-        Schedule.destroy({
-            where: {
-                id: id
-            }
-        })
-            .then(() => {
-                res.redirect('/');
+        const id = req.params.id;
+        Schedule.findByPk(id)
+            .then(schedule => {
+                if (!schedule) {
+                    return;
+                }
+                const currentDate = new Date();
+                if (currentDate > schedule.departure) {
+                    return Schedule.destroy({
+                        where: {
+                            id: id
+                        }
+                    });
+                } else {
+                }
             })
-            .catch((err) => {
+            .then(() => {
+                res.redirect('/schedule');
+            })
+            .catch(err => {
                 res.send(err);
                 console.log(err);
             });
+        
     }
     
     

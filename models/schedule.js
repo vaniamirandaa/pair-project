@@ -15,7 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Schedule.init({
-    departure: DataTypes.TIME,
+    departure: {
+      type: DataTypes.DATE,
+      validate: {
+        isNotInPast(value) {
+          const now = new Date();
+          if (value.getTime() < now.getTime()) {
+            throw new Error('Departure date cannot be in the past!');
+          }
+        }
+      }
+    },    
     origin: DataTypes.STRING,
     destination: DataTypes.STRING,
     TravelAgentId: {
@@ -29,5 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Schedule',
   });
+
+
   return Schedule;
 };

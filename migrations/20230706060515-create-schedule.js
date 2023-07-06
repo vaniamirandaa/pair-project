@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       departure: {
-        type: Sequelize.TIME
+        type: Sequelize.DATE
       },
       origin: {
         type: Sequelize.STRING

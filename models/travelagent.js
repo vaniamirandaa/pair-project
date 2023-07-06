@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       TravelAgent.hasMany(models.Schedule)
       TravelAgent.belongsTo(models.User)
     }
+
+    get travel() {
+      return this.name ;
+    }
   }
   TravelAgent.init({
     UserId: {

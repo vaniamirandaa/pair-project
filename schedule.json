@@ -1,36 +1,36 @@
 [
     {
-      "departure": "09:00",
+      "departure": "2023-07-06",
       "origin": "Jakarta",
       "destination": "Bali",
       "TravelAgentId": 1
     },
     {
-      "departure": "14:30",
+      "departure": "2023-07-06",
       "origin": "Surabaya",
       "destination": "Yogyakarta",
       "TravelAgentId": 2
     },
     {
-      "departure": "10:45",
+      "departure": "2023-07-06",
       "origin": "Bandung",
       "destination": "Lombok",
       "TravelAgentId": 3
     },
     {
-      "departure": "09:00",
+      "departure": "2023-07-06",
       "origin": "Jakarta",
       "destination": "Bali",
       "TravelAgentId": 1
     },
     {
-      "departure": "14:30",
+      "departure": "2023-07-06",
       "origin": "Surabaya",
       "destination": "Yogyakarta",
       "TravelAgentId": 2
     },
     {
-      "departure": "10:45",
+      "departure": "2023-07-06",
       "origin": "Bandung",
       "destination": "Lombok",
       "TravelAgentId": 3
