@@ -29,30 +29,13 @@ class Controller {
         req.session.message = 'Username or password is incorrect';
         res.redirect('/login');
     }
-    }
+}
 
     static logout(req, res) {
         req.session.destroy(() => {
-          res.redirect('/login');
+            res.redirect('/login');
         });
-      }
-
-    
-    static findSchedule(req, res){
-        Schedule.findAll({
-            include: TravelAgent, Itinerary
-        })
-
-        .then((schedules) => {
-            // res.send(schedules)
-            res.render('home', {schedules})
-
-        })
-        .catch((err)=>{
-            res.send(err)
-        })
-    }
-
+}
     static createUser(req, res){
         const { email, password, firstName, lastName, dateOfBirth, phoneNumber, address } = req.body
         User.create({email, password, role: 'customer'})
@@ -70,5 +53,24 @@ class Controller {
     static getNewUser(req, res){
         res.render('SignUp')
     }
+
+    
+    static findSchedule(req, res){ // masih bingung nampilin firstName profile pas login
+        Schedule.findAll({
+            include: TravelAgent, Profile
+        })
+
+        .then((schedules, profiles) => {
+            // res.send(schedules)
+            res.render('home', { schedules, profiles });
+
+        })
+        .catch((err)=>{
+            res.send(err)
+        })
+    }
+
+
+
 }
 module.exports = Controller

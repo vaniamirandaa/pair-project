@@ -5,25 +5,25 @@
 </head>
 <body>
   <h1>Login</h1>
-
+  
   <% if (message) { %>
     <p><%= message %></p>
-  <% } %>
-
-  <form method="post" action="/login">
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email">
-
-    <br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-
-    <br>
-    <button type="submit">Login</button>
-
-    <br>
+    <% } %>
+    
+    <form method="post" action="/login">
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email">
+      
+      <br>
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      
+      <br>
+      <button type="submit">Login</button>
+      
+      <br>
+    </form>
     <a href="/signup"><button>Sign Up</button></a>
-  </form>
 </body>
 </html>
