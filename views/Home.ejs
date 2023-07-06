@@ -32,14 +32,13 @@
                 <td><%= e.origin %></td>  
                 <td><%= e.destination %></td>
                 <td><%= e.departure %></td>
-                <% if (typeof userRole !== 'undefined') { %>
 
                 <% if (userRole === 'agent') { %>
-                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/remove/<%= e.id %>">Remove</a></td>
+                    <td><a href="/edit/<%= e.id %>">Edit</a> | <a href="/delete/<%= e.id %>">Delete</a></td>
                 <% } else if (userRole === 'customer') { %>
                     <td><a href="/book/<%= e.id %>">BOOK</a></td>
                 <% } %>
-                <% } %>
+                
 
             </tr>
         <% })  %>
