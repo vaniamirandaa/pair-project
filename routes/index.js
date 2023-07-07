@@ -16,6 +16,7 @@ router.get('/', Controller.home)
 router.get('/schedules', Controller.findSchedule)
 router.get('/login',Controller.login )
 router.get('/schedules/buy/:id', Controller.buyTicket)
+router.post('/schedules/buy/:id', Controller.generateBook)
 router.post('/login',Controller.getLogin )
 router.post('/logout', Controller.logout);
 router.get('/signup', Controller.getNewUser)
