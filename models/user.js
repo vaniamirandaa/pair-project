@@ -53,14 +53,14 @@ module.exports = (sequelize, DataTypes) => {
   User.beforeCreate(async (user, options) => {
     const saltRounds = 10;
     user.password = await bcrypt.hash(user.password, saltRounds);
-});
+  });
 
-User.beforeSave(async (user, options) => {
+  User.beforeSave(async (user, options) => {
     if (user.changed('password')) {
         const saltRounds = 10;
         user.password = await bcrypt.hash(user.password, saltRounds);
     }
-});
+  });
   return User;
 
 };

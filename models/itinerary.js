@@ -15,7 +15,16 @@ module.exports = (sequelize, DataTypes) => {
       Itinerary.belongsTo(models.Schedule)
 
     }
+
+    static getStatus() {
+      return [
+        { value: 'ongoing', label: 'In Progress' },
+        { value: 'pending', label: 'Pending' },
+        { value: 'done', label: 'Completed' }
+      ];
+    }
   }
+  
   Itinerary.init({
     departure: DataTypes.DATE,
     status: DataTypes.STRING,

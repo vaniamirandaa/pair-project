@@ -58,5 +58,17 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Profile',
   });
+  Profile.beforeValidate((profile, origins) => {
+    if (profile.firstName) {
+      profile.firstName = profile.firstName[0].toUpperCase() + profile.firstName.slice(1).toLowerCase();
+  }
+  if (profile.lastName) {
+      profile.lastName = profile.lastName[0].toUpperCase() + profile.lastName.slice(1).toLowerCase();
+  }
+if (profile.address) {
+  profile.address = profile.address[0].toUpperCase() + profile.address.slice(1).toLowerCase();
+}
+  })
+
   return Profile;
 };

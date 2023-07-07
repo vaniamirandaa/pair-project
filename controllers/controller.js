@@ -22,6 +22,7 @@ class Controller {
         .then((users) => {
             if (users.length > 0 && users[0].password === password) {
             req.session.user = {
+                id: users[0].id,
                 email: users[0].email,
                 role: users[0].role
             };
@@ -72,8 +73,11 @@ class Controller {
 
     
     static findSchedule(req, res) {
-        let where = {};
-        if (req.query.origin) {
+
+        let where = {
+          };        
+          
+          if (req.query.origin) {
             where.origin = { [Op.iLike]: `%${req.query.origin}%` };
         }
         if (req.query.destination) {
@@ -106,9 +110,6 @@ class Controller {
         }
         Schedule.findByPk(req.params.id)
         .then((schedule) => {
-            if(!schedule) {
-                throw ("Travel not found!")
-            }
             return schedule.decrement('seatNumber')
         })
         .then(() => {
@@ -138,13 +139,60 @@ static getNewTravel(req, res){
         res.redirect('/schedules')
     })
     .catch((err)=>{
-       if(err.name === 'SequelizeValidationError'){
-        return res.send(err.errors[0].message)
-       }
-       res.send(err)
+        if(err.name === 'SequelizeValidationError'){
+            return res.send(err.errors[0].message)
+        }
+        res.send(err)
     })
 }
-
+  
+  static itinerary(req, res) {
+    // const userId = req.session.userId;
+    Itinerary.findAll({
+    //   where: { UserId: userId },
+      include: [Schedule, User]
+    })
+      .then((itineraries) => {
+        if (itineraries.length > 0) {
+          res.render('itinerary', { itineraries });
+        } else {
+          res.status(404).send('No itineraries found for the specified user');
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+  
+  static addItinerary(req, res) {
+    Schedule.findAll({})
+      .then((schedules) => {
+        res.render('AddItinerary', { schedules, getStatus: Itinerary.getStatus() });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.send(err);
+      });
+  }
+  
+  static getItinerary(req, res) {
+    Itinerary.create({
+      departure: req.body.departure,
+      status: req.body.status,
+      ScheduleId: req.body.scheduleId,
+      UserId: req.session.userId
+    })
+      .then(() => {
+        res.redirect('/itineraries');
+      })
+      .catch((err) => {
+        if (err.name === 'SequelizeValidationError') {
+          return res.send(err.errors[0].message);
+        }
+        res.send(err);
+      });
+  }
+  
     static delete(req, res) {
         const id = req.params.id;
         Schedule.findByPk(id)
@@ -172,7 +220,7 @@ static getNewTravel(req, res){
         
     }
     
-    
+      
 
 
 }

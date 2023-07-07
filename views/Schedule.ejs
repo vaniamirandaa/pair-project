@@ -9,8 +9,6 @@
 <body>
     <div class="container">
         <h1>Travel List</h1>
-        <!-- <a href="/">Check Your Plan</a> -->
-        
         <form action="/schedules" method="get" class="mb-3">
             <div class="form-row">
                 <div class="col">
@@ -29,13 +27,18 @@
             <form method="post" action="/logout">
                 <button type="submit" class="btn btn-secondary">Logout</button>
             </form>
+            <a href="/itineraries" class="btn btn-primary mt-3">Itinerary</a>
+
         <% } else { %>
             <a href="/login" class="btn btn-primary">Login</a>
             <a href="/signup" class="btn btn-secondary">Sign Up</a>
         <% } %>
+
         <% if (userRole === 'agent') { %>
             <a href="/schedules/add" class="btn btn-success">Add Travel</a>
         <% } %>
+
+        
 
         <% if (schedules.length > 0) { %>
         <table class="table table-bordered mt-3">
@@ -84,7 +87,6 @@
         <% } %>
     </div>
 
-    <!-- Bootstrap JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
